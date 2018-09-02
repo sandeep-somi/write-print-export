@@ -5,10 +5,15 @@ import { FormInput, FormButton } from '../common';
 
 const MainForm = props => {
   const { fields = [] } = props;
-  console.log(fields, 'fields');
+  const { openModal } = props;
+  // console.log(fields, 'fields');
 
   return (
     <Grid container>
+      <Grid item xs={12}>
+        <FormButton clr="teal" onClick={openModal}>Create</FormButton>
+        <FormButton clr="teal">Update</FormButton>
+      </Grid>
       <Grid item xs={12}>
       
       </Grid>
