@@ -35,7 +35,7 @@ export default class Modal extends React.Component {
         maxWidth={size || 'md'}
       >
         <DialogTitle>
-          {title}
+          <span style={{color: 'teal'}}>{title}</span>
         </DialogTitle>
         <DialogContent>
           {this.props.children} 

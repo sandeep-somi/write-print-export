@@ -14,7 +14,8 @@ const FormButton = props => {
         color: clr,
         margin: '0px 2px',
         padding: '0px 10px',
-        minHeight: 30
+        minHeight: 30,
+        minWidth: 10
       }}
     >
     {props.children}

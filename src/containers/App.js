@@ -1,18 +1,23 @@
 import React, { Component } from 'react';
 import { Grid, TextField } from '@material-ui/core';
-import { MainForm } from '../components';
+import { MainForm, FieldForm } from '../components';
 import { Modal } from '../common';
 import { fields } from '../constants';
+import actions from '../redux/actions';
+import { connect } from 'react-redux';
 
 class App extends Component {
   state = {
     fields: [...fields]
   }
 
+  componentDidMount() {
+    actions.createFields(fields);
+  }
 
   render() {
     const { fields = [] } = this.state;
-
+    console.log(this.props, 'this.props');
     return (
       <div>
         <Grid container spacing={0}>
@@ -37,7 +42,7 @@ class App extends Component {
         </Grid>
         <Modal
           ref={(c) => this.modal = c}
-          size="sm"
+          size="md"
           title="Create New Form"
           onConfirm=""
           confirmTxt="Submit"
@@ -45,15 +50,11 @@ class App extends Component {
           cancelTxt="Cancel"
           onCancel=""
         >
-          <Grid container>
-            <Grid item xs={12} sm={12} md={12}>
-              Test Modal
-            </Grid>
-          </Grid>
+          <FieldForm />
         </Modal>
       </div>
     );
   }
 }
 
-export default App;
+export default connect((state) => state)(App);

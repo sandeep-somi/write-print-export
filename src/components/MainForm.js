@@ -6,7 +6,6 @@ import { FormInput, FormButton } from '../common';
 const MainForm = props => {
   const { fields = [] } = props;
   const { openModal } = props;
-  // console.log(fields, 'fields');
 
   return (
     <Grid container>

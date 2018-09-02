@@ -13,7 +13,19 @@ const FormInput = props => {
   } = props;
   return (
     <React.Fragment>
-			{type === 'text' ? <TextField
+			{type === 'textarea' ? <TextField
+			id={id}
+			label={name}
+			className={className}
+			fullWidth={fullWidth}
+			error={error}
+			multiline
+			rows={max ? max % 100 : null }
+			inputProps={{
+				maxLength: max
+			}}
+		/> : 
+		<TextField
 				id={id}
 				label={name}
 				className={className}
@@ -23,18 +35,7 @@ const FormInput = props => {
 				inputProps={{
 					maxLength: max
 				}}
-			/> : <TextField
-			id={id}
-			label={name}
-			className={className}
-			fullWidth={fullWidth}
-			error={error}
-			multiline
-			rows={max % 500}
-			inputProps={{
-				maxLength: max
-			}}
-		/>}
+			/>}
 		</React.Fragment>
   )
 }
