@@ -55,7 +55,15 @@
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build:prod",
+    "build:prod": "better-npm-run build:prod"
+  },
+  "build:prod": {
+    "command": "webpack --config webpack.config.js --progress",
+    "env": {
+      "NODE_ENV": "production",
+      "HOST": "https://sandeepsomi.github.io/write-print-export"
+    }
   },
   "jest": {
     "collectCoverageFrom": [

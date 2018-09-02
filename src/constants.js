@@ -1,3 +1,9 @@
+import Config from 'Config';
+export const assetsPrefix = Config.assetsPrefix;
+export const host = Config.host;
+export const port = Config.port;
+
+
 export const fields = [
   {
     name: 'First Name',
