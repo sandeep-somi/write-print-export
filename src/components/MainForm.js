@@ -10,7 +10,7 @@ const MainForm = props => {
 
   return (
     <Grid container>
-      <Grid item xs={12}>
+      <Grid item xs={12} style={{textAlign: 'right', padding: 5}}>
         <FormButton clr="teal" onClick={openModal}>Create</FormButton>
         <FormButton clr="teal">Update</FormButton>
       </Grid>

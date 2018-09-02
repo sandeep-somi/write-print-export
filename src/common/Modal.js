@@ -41,8 +41,8 @@ export default class Modal extends React.Component {
           {this.props.children} 
         </DialogContent>
         <DialogActions>
-          {cancelTxt && <FormButton onClick={this.close} color="primary">{cancelTxt}</FormButton>}
-          {confirmTxt && <FormButton onClick={this.onConfirm} color="primary">{confirmTxt}</FormButton>}
+          {confirmTxt && <FormButton onClick={this.onConfirm} clr="teal">{confirmTxt}</FormButton>}
+          {cancelTxt && <FormButton onClick={this.close} clr="red">{cancelTxt}</FormButton>}
         </DialogActions>
       </Dialog>
     );
