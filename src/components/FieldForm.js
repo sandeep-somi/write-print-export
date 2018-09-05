@@ -6,7 +6,6 @@ import { Delete } from '@material-ui/icons';
 
 class FieldForm extends React.Component {
   state = {
-    length: 1,
     fields: [
       {
         name: 'Sample',
@@ -14,12 +13,37 @@ class FieldForm extends React.Component {
         max: 32,
         required: true,
         error: 'First name is required'
-      }
-    ]
+      },
+    ],
+    field: {
+      name: '',
+      type: '',
+      max: 32,
+      required: false,
+      error: ''
+    }
   }
 
-  onChange = (index) => {
-    console.log(index)
+  componentDidMount() {
+
+  }
+
+  onChange = (index, key, value) => {
+    let { fields = []} = this.state;
+    fields[index][key] = value;
+    this.setState({ fields });
+  }
+
+  addField = () => {
+    let { field, fields = [] } = this.state;
+    fields.push({...field});
+    this.setState({ fields });
+  }
+
+  removeField = (index) => {
+    let { fields = [] } = this.state;
+    fields.splice(index, 1);
+    this.setState({ fields });
   }
 
   render() {
@@ -29,15 +53,21 @@ class FieldForm extends React.Component {
       <Grid container>
         <Grid item xs={12} sm={12} md={12}>
           {fields && fields.map((field, key) => <FieldItem
+            field={field}
             key={key}
+            index={key}
             field={field}
             onChange={this.onChange.bind(this, key)}
+            removeField={this.removeField}
           />)}
         </Grid>
         <Grid container style={{margin: '10px 0px'}}>
           <Grid item xs={12} style={{textAlign: 'center'}}>
-            <FormButton>+ Add</FormButton>
+            <FormButton onClick={this.addField}>+ Add</FormButton>
           </Grid>
+          {/* <Grid item xs={12} style={{padding: '20px 0px'}}>
+            <FormButton clr="red">Submit</FormButton>
+          </Grid> */}
         </Grid>
       </Grid>
     )
@@ -47,38 +77,68 @@ class FieldForm extends React.Component {
 export default FieldForm;
 
 const FieldItem = props => {
-  const { onChange, field = {} } = props
-  console.log(field, 'field')
+  const { onChange, field = {}, removeField, index } = props;
+
   return (
-    <Grid container>
+    <Grid container style={{paddingTop: 10}}>
       <Grid item xs={12} sm={1} md={1} style={{textAlign: 'center', padding: 20}}>
-        # 1
+        # {index + 1}
       </Grid>
       <Grid item xs={12} sm={10} md={10} className="item-field">
         <Grid container>
-          <Grid item xs={12} sm={6} md={3} className="item-element">
+          
+            {/* {
+              field && Object.keys(field).map((item, key) => {
+                let type = item === 'error' ? 'textarea' : 'text'
+                
+                return <Grid item xs={12} sm={6} md={3} className="item-element" key={key}>
+                <FormInput
+                  name={item}
+                  type={type}
+                  fullWidth
+                  onChange={e => onChange(item, e.target.value)}
+                  value={field[item]}
+                />
+              </Grid>
+              })
+            } */}
+            
+            <Grid item xs={12} sm={6} md={3} className="item-element">
             <FormInput
-              name="Name"
+              name="name"
               type="text"
               fullWidth
               onChange={e => onChange('name', e.target.value)}
               value={field.name}
             />
           </Grid>
-          <Grid item xs={12} sm={6} md={3} className="item-element">
+          {/* <Grid item xs={12} sm={6} md={3} className="item-element">
             <FormInput
-              name="Type"
+              name="type"
               type="text"
               fullWidth
               onChange={e => onChange('type', e.target.value)}
               value={field.type}
             />
+          </Grid> */}
+          <Grid item xs={12} sm={6} md={3} className="item-element">
+            <FormControl fullWidth>
+              <InputLabel>Type</InputLabel>
+              <Select
+                onChange={e => onChange('type', e.target.value)}
+                value={field.type}
+              >
+                <MenuItem value='text'>Text</MenuItem>
+                <MenuItem value='textarea'>Textarea</MenuItem>
+                <MenuItem value='number'>Number</MenuItem>
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={12} sm={6} md={3} className="item-element">
             <FormControl fullWidth>
               <InputLabel>Mandatory</InputLabel>
               <Select
-                onChange={onChange}
+                onChange={e => onChange('required', e.target.value)}
                 value={field.required}
               >
                 <MenuItem value="">
@@ -92,9 +152,9 @@ const FieldItem = props => {
           <Grid item xs={12} sm={6} md={3} className="item-element">
             <FormInput
               name="Length"
-              type="text"
+              type="number"
               fullWidth
-              onChange={onChange}
+              onChange={e => onChange('max', e.target.value)}
               value={field.max}
             />
           </Grid>
@@ -102,16 +162,16 @@ const FieldItem = props => {
             <FormInput
               name="Error to display"
               type="textarea"
-              max="200"
+              max={field.max}
               fullWidth
-              onChange={onChange}
+              onChange={e => onChange('error', e.target.value)}
               value={field.error}
             />
           </Grid>
         </Grid>
       </Grid>
       <Grid item xs={12} sm={1} md={1} style={{textAlign: 'center', padding: '20px 0px'}}>
-        <FormButton clr="red"><Delete/></FormButton>
+        <FormButton clr="red" onClick={removeField.bind(this, index)}><Delete/></FormButton>
       </Grid>
     </Grid>
   )

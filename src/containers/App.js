@@ -21,23 +21,23 @@ class App extends Component {
     return (
       <div>
         <Grid container spacing={0}>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6} md={6}>
             <h1 className="title">Write Print Export</h1>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6} md={6}>
           <TextField
             label="Title"
             fullWidth
           />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6} md={6}>
             <MainForm
               fields={fields}
               openModal={() => this.modal.open()}
             />
           </Grid>
-          <Grid item xs={6}>
-            
+          <Grid item xs={12} sm={6} md={6}>
+            Table will be here.
           </Grid>
         </Grid>
         <Modal

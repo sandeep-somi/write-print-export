@@ -9,24 +9,29 @@ const FormInput = props => {
     type = 'text',
     error = false,
 		fullWidth = false,
-		max='100'
+		max ='100',
+		value = '',
+		onChange
   } = props;
   return (
     <React.Fragment>
 			{type === 'textarea' ? <TextField
 			id={id}
+			value={value}
 			label={name}
 			className={className}
 			fullWidth={fullWidth}
 			error={error}
 			multiline
-			rows={max ? max % 100 : null }
+			rows='2'
 			inputProps={{
 				maxLength: max
 			}}
+			onChange={onChange}
 		/> : 
 		<TextField
 				id={id}
+				value={value}
 				label={name}
 				className={className}
 				fullWidth={fullWidth}
@@ -35,6 +40,7 @@ const FormInput = props => {
 				inputProps={{
 					maxLength: max
 				}}
+				onChange={onChange}
 			/>}
 		</React.Fragment>
   )
